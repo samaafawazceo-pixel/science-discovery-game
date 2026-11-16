@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مختبر الصلصال الذكي ⚡🎨 | ورشة ديسكفري العلمية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- خلفية تفاعلية مبهجة -->
+    <div class="bg-decorations">
+        <div class="bubble b1">⚡</div>
+        <div class="bubble b2">💡</div>
+        <div class="bubble b3">🧂</div>
+        <div class="bubble b4">🔋</div>
+        <div class="bubble b5">🎨</div>
+        <div class="bubble b6">🐌</div>
+        <div class="bubble b7">🦋</div>
+    </div>
+
+    <!-- الشريط العلوي -->
+    <header class="top-header">
+        <div class="brand">
+            <span class="logo-icon">⚡🎨</span>
+            <div>
+                <h1>مختبر الصلصال الذكي</h1>
+                <p class="subtitle">اصنع، وصّل، ونوّر أشكالك بالكهرباء!</p>
+            </div>
+        </div>
+
+        <nav class="mode-tabs">
+            <button class="tab-btn" onclick="switchSection('guide')" id="tab-guide">
+                <span class="tab-icon">🎬</span>
+                <span>0. فيديو الشرح والكتالوج</span>
+            </button>
+            <button class="tab-btn active" onclick="switchSection('kitchen')" id="tab-kitchen">
+                <span class="tab-icon">🥣</span>
+                <span>1. مطبخ الصلصال</span>
+            </button>
+            <button class="tab-btn" onclick="switchSection('workshop')" id="tab-workshop">
+                <span class="tab-icon">🔌</span>
+                <span>2. ورشة الأشكال المضيئة</span>
+            </button>
+            <button class="tab-btn" onclick="switchSection('quiz')" id="tab-quiz">
+                <span class="tab-icon">🏆</span>
+                <span>3. تحدي العلماء الصغار</span>
+            </button>
+        </nav>
+
+        <div class="score-badge">
+            <button class="quick-help-btn" onclick="switchSection('guide'); startTutorialVideo();" title="شاهد فيديو طريقة اللعب">▶️ كيف ألعب؟</button>
+            <span class="star-icon">⭐</span>
+            <span id="score-val">0</span>
+            <span class="score-label">نقطة</span>
+            <button class="sound-toggle" id="sound-btn" onclick="toggleMute()" title="تشغيل/كتم الصوت">🔊</button>
+        </div>
+    </header>
+
+    <!-- شخصية المساعد الذكي -->
+    <div class="mascot-bar" id="mascot-bar">
+        <div class="mascot-avatar" id="mascot-face">🤖</div>
+        <div class="mascot-speech">
+            <strong id="mascot-title">أهلاً بك يا عالمنا الصغير! 🌟</strong>
+            <p id="mascot-text">هل تعلم أننا نستطيع صناعة صلصال يوصل الكهرباء وصلصال آخر يمنع مرورها؟ اضغط على (🎬 فيديو الشرح والكتالوج) أو ابدأ التجربة فوراً!</p>
+        </div>
+    </div>
+
+    <!-- ==================== القسم التوضيحي: فيديو الشرح التفاعلي + الكتالوج المصور ==================== -->
+    <main id="section-guide" class="game-section">
+        <div class="guide-container">
+            <!-- مشغل الفيديو التوضيحي المتحرك (مثال حي خطوة بخطوة باللهجة المصرية) -->
+            <div class="video-player-card">
+                <div class="video-header">
+                    <div>
+                        <span class="badge-tag">فيديو شرح باللهجة المصرية 🎬🇪🇬</span>
+                        <h2>شوف إزاي تعمل دايرة الصلصال المنوّرة خطوة بخطوة!</h2>
+                    </div>
+                    <div class="video-controls-top">
+                        <button class="v-btn play" id="vid-play-btn" onclick="toggleTutorialPlay()">▶️ شغّل الفيديو بالصوت المصري</button>
+                        <button class="v-btn restart" onclick="restartTutorialVideo()">🔄 شغّله من الأول</button>
+                    </div>
+                </div>
+
+                <!-- شاشة الفيديو المتحركة -->
+                <div class="video-screen" id="video-screen">
+                    <div class="video-step-badge" id="vid-step-badge">مشهد 1 من 6</div>
+                    
+                    <svg id="tutorial-video-svg" viewBox="0 0 800 390" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="800" height="390" rx="20" fill="#0f172a"/>
+                        <circle cx="100" cy="70" r="60" fill="#1e293b"/>
+                        <circle cx="700" cy="320" r="80" fill="#1e293b"/>
+
+                        <!-- البطارية في الفيديو -->
+                        <g id="vid-battery" transform="translate(55, 220)" opacity="0.3">
+                            <rect x="0" y="20" width="90" height="110" rx="10" fill="#334155" stroke="#94a3b8" stroke-width="3"/>
+                            <rect x="0" y="20" width="90" height="35" rx="8" fill="#f59e0b"/>
+                            <text x="45" y="44" text-anchor="middle" fill="#000" font-size="16" font-weight="900">9V 🔋</text>
+                            <circle cx="26" cy="75" r="10" fill="#ef4444"/>
+                            <text x="26" y="80" text-anchor="middle" fill="#fff" font-size="14" font-weight="900">+</text>
+                            <circle cx="64" cy="75" r="10" fill="#0f172a"/>
+                            <text x="64" y="80" text-anchor="middle" fill="#fff" font-size="14" font-weight="900">-</text>
+                        </g>
+
+                        <!-- عناصر المشهد المتحرك -->
+                        <g id="vid-scene-layer"></g>
+
+                        <!-- مؤشر الماوس/اليد المتحرك الذي يشرح للطفل أين يضغط -->
+                        <g id="vid-cursor" transform="translate(400, 200)" style="transition: all 0.7s ease-in-out;">
+                            <circle cx="0" cy="0" r="22" fill="rgba(250, 204, 21, 0.35)" class="cursor-pulse"/>
+                            <text x="-12" y="12" font-size="34">👆</text>
+                        </g>
+                    </svg>
+
+                    <!-- شريط الترجمة والشرح أسفل الفيديو باللهجة المصرية -->
+                    <div class="video-caption-box">
+                        <div class="caption-title" id="vid-caption-title">دوس على (▶️ شغّل الفيديو بالصوت المصري) واتفرج على الشرح!</div>
+                        <div class="caption-desc" id="vid-caption-desc">هنتعلم سوا في دقيقة واحدة إزاي نعجن الصلصال ونوصّل البطارية والليد من غير ما نغلط ولا غلطة!</div>
+                    </div>
+
+                    <!-- أزرار التنقل بين مشاهد الفيديو -->
+                    <div class="video-timeline">
+                        <button class="timeline-dot active" onclick="goToVideoStep(0)" id="vdot-0">1. سر الملح والسكر 🧂</button>
+                        <button class="timeline-dot" onclick="goToVideoStep(1)" id="vdot-1">2. تشكيل الصلصال 🔴</button>
+                        <button class="timeline-dot" onclick="goToVideoStep(2)" id="vdot-2">3. نحط العازل 🛡️</button>
+                        <button class="timeline-dot" onclick="goToVideoStep(3)" id="vdot-3">4. سلوك البطارية 🔋</button>
+                        <button class="timeline-dot" onclick="goToVideoStep(4)" id="vdot-4">5. نركب الليد 💡</button>
+                        <button class="timeline-dot" onclick="goToVideoStep(5)" id="vdot-5">6. اوعى يلمسوا بعض! ⚠️</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الكتالوج والمانوال المصور (دليل استخدام الموقع + خطوات الورشة باللهجة المصرية) -->
+            <div class="manual-section">
+                <div class="manual-header">
+                    <div>
+                        <span class="badge-tag">المانوال والكتالوج الإرشادي 📖</span>
+                        <h2>دليل خطوات ورشة ديسكفري وإزاي تلعب على الموقع</h2>
+                    </div>
+                    <button class="btn-print-manual" onclick="window.print()">🖨️ اطبع المانوال للأطفال</button>
+                </div>
+
+                <!-- أولاً: خطوات اللعب على الموقع في 3 مراحل -->
+                <h3 class="manual-sub-heading">🖥️ أولاً: إزاي تلعب وتشتغل على الموقع في 3 خطوات؟</h3>
+                <div class="manual-steps-grid">
+                    <div class="manual-step-card">
+                        <div class="m-step-num">1</div>
+                        <div class="m-step-icon">🥣🧂🍬</div>
+                        <h4>الخطوة الأولى: مطبخ الصلصال</h4>
+                        <p>ادخل على <strong>(1. مطبخ الصلصال)</strong> وجرب تخلط (مية + دقيق + ملح) عشان تعمل صلصال بيوصّل كهربا، وجرب (مية + دقيق + سكر) أو الفوم عشان تعمل العازل، واختبرهم بجهاز الفحص!</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <div class="m-step-num">2</div>
+                        <div class="m-step-icon">🔌🐌🦋</div>
+                        <h4>الخطوة التانية: ورشة الأشكال</h4>
+                        <p>ادخل على <strong>(2. ورشة الأشكال المضيئة)</strong> واختار الشكل اللي تحبه (الكورتين، الحلزون، السمكة، الأخطبوط، الفراشة، أو العربية). اختار الأدوات من اليمين ودوس على الرسمة عشان تنوّر الشكل!</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <div class="m-step-num">3</div>
+                        <div class="m-step-icon">🏆🧠⭐</div>
+                        <h4>الخطوة التالتة: تحدي العلماء</h4>
+                        <p>بعد ما تنوّر أشكالك، ادخل على <strong>(3. تحدي العلماء الصغار)</strong> وجاوب على الـ 7 أسئلة عشان تجمع النجوم وتثبت إنك أشطر مهندس قد الدنيا!</p>
+                    </div>
+                </div>
+
+                <!-- ثانياً: القواعد الذهبية من أوراق ورشة ديسكفري -->
+                <h3 class="manual-sub-heading">⚡ ثانياً: الـ 6 قواعد الدهبية في ورشة الصلصال الكهربي</h3>
+                <div class="golden-rules-grid">
+                    <div class="rule-box rule-good">
+                        <span class="rule-emoji">🔋</span>
+                        <div>
+                            <h5>1. توصيل البطارية والجاك</h5>
+                            <p>بنركب الجاك في بطارية 9 فولت، وبيكون <strong>السلك الأحمر هو الطرف الموجب (+)</strong> و<strong>السلك الأسود هو الطرف السالب (-)</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="rule-box rule-good">
+                        <span class="rule-emoji">💡</span>
+                        <div>
+                            <h5>2. رجلين الليد (LED)</h5>
+                            <p>الليد ليه رجلين: <strong>الرجل الطويلة هي الموجب (+)</strong> وبنغرزها في الصلصال المتوصل بالأحمر، و<strong>الرجل القصيرة هي السالب (-)</strong> وبنغرزها مع الأسود.</p>
+                        </div>
+                    </div>
+                    <div class="rule-box rule-warn">
+                        <span class="rule-emoji">🔥</span>
+                        <div>
+                            <h5>3. ممنوع التوصيل المباشر!</h5>
+                            <p>اوعى توصّل الليد بالبطارية الـ 9 فولت على طول عشان ميتحرقش! لازم نوصّله عن طريق الصلصال الكهربي عشان يحميه.</p>
+                        </div>
+                    </div>
+                    <div class="rule-box rule-warn">
+                        <span class="rule-emoji">💥</span>
+                        <div>
+                            <h5>4. اوعى الصلصال يلمس بعضه!</h5>
+                            <p>لو حتتين الصلصال الكهربي لمسوا بعض من غير عازل، الليد مش هينوّر والبطارية هتفضى وتسخن وتبوظ في دقايق!</p>
+                        </div>
+                    </div>
+                    <div class="rule-box rule-info">
+                        <span class="rule-emoji">🛡️</span>
+                        <div>
+                            <h5>5. سر العازل اللي في النص</h5>
+                            <p>دايماً بنحط عازل يفصل بين الموجب والسالب: زي <strong>حتة فوم، ورق، كرتون، بلاستيك، أو عجينة بالسكر (مية ودقيق وسكر من غير ملح)</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="rule-box rule-info">
+                        <span class="rule-emoji">⚙️</span>
+                        <div>
+                            <h5>6. الجرس والموتور</h5>
+                            <p>بنفس الطريقة تقدر تركب مصدر الصوت (الجرس) أو موتور المروحة مع الليد وتبتكر بيوت وعربيات وأشكال كتير ممتعة!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ثالثاً: كتالوج الأشكال الـ 6 خطوة بخطوة -->
+                <h3 class="manual-sub-heading">🎨 ثالثاً: كتالوج خطوات الأشكال الـ 6 بالتفصيل</h3>
+                <div class="shapes-catalog-manual">
+                    <div class="catalog-item">
+                        <div class="cat-icon">🟠🟣</div>
+                        <div class="cat-body">
+                            <h4>1. الكورتين والليد</h4>
+                            <p>اعمل كورتين من الصلصال الكهربي، وافصل بينهم بحتة فوم أو عجينة سكر، وصّل الأحمر بكورة والأسود بالتانية، واغرز الليد بينهم.</p>
+                            <button class="cat-try-btn" onclick="switchSection('workshop'); loadShape('balls');">جربها دلوقتي في الورشة ⬅️</button>
+                        </div>
+                    </div>
+                    <div class="catalog-item">
+                        <div class="cat-icon">🐌</div>
+                        <div class="cat-body">
+                            <h4>2. الحلزون المنوّر</h4>
+                            <p>لف شريط صلصال طويل عشان تعمل صدفة الحلزون (+)، واعمل جسم الحلزون وقرونه (-)، وحط بينهم عازل، وبعدين ركب الليد.</p>
+                            <button class="cat-try-btn" onclick="switchSection('workshop'); loadShape('snail');">جربها دلوقتي في الورشة ⬅️</button>
+                        </div>
+                    </div>
+                    <div class="catalog-item">
+                        <div class="cat-icon">🐠</div>
+                        <div class="cat-body">
+                            <h4>3. السمكة المنوّرة</h4>
+                            <p>اعمل جسم السمكة والديل والزعانف (+)، وافصل الوش تماماً عن الجسم بقوس عازل (فوم أو ورق)، وخلي الوش (-) وحط الليد مكان العين!</p>
+                            <button class="cat-try-btn" onclick="switchSection('workshop'); loadShape('fish');">جربها دلوقتي في الورشة ⬅️</button>
+                        </div>
+                    </div>
+                    <div class="catalog-item">
+                        <div class="cat-icon">🐙</div>
+                        <div class="cat-body">
+                            <h4>4. الأخطبوط العجيب</h4>
+                            <p>اعمل راس الأخطبوط و8 رجول، واقسم الراس نصين بينهم شريط عازل، ووصّل الموجب والسالب والليد عشان عنيه تنوّر!</p>
+                            <button class="cat-try-btn" onclick="switchSection('workshop'); loadShape('octopus');">جربها دلوقتي في الورشة ⬅️</button>
+                        </div>
+                    </div>
+                    <div class="catalog-item">
+                        <div class="cat-icon">🦋</div>
+                        <div class="cat-body">
+                            <h4>5. الفراشة المنوّرة</h4>
+                            <p>الجناح اليمين صلصال كهربي (+)، والجناح الشمال صلصال كهربي (-)، وفي النص جسم الفراشة الأصفر من عجينة السكر العازلة، والليد بين الجناحين.</p>
+                            <button class="cat-try-btn" onclick="switchSection('workshop'); loadShape('butterfly');">جربها دلوقتي في الورشة ⬅️</button>
+                        </div>
+                    </div>
+                    <div class="catalog-item">
+                        <div class="cat-icon">🚗</div>
+                        <div class="cat-body">
+                            <h4>6. العربية الساندوتش</h4>
+                            <p>طبقة صلصال كهربي فوق (+) وطبقة تحت (-)، وفي النص طبقة عازل مع 4 عجلات من الفوم العازل، ونغرز الليد بين الطبقة اللي فوق واللي تحت!</p>
+                            <button class="cat-try-btn" onclick="switchSection('workshop'); loadShape('car');">جربها دلوقتي في الورشة ⬅️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== القسم الأول: مطبخ الصلصال (الملح والسكر والماء) ==================== -->
+    <main id="section-kitchen" class="game-section active">
+        <div class="kitchen-container">
+            <div class="mission-card">
+                <div class="mission-header">
+                    <span class="badge-tag">التجربة الأولى 🧪</span>
+                    <h2>سر التوصيل والعزل: الملح أم السكر؟</h2>
+                </div>
+                <p class="mission-desc">
+                    لكي نُشعل الليد (LED) دون أن تحترق البطارية، نحتاج إلى نوعين من العجين:
+                    <strong class="text-conductive">صلصال موصل للكهرباء ⚡</strong> و
+                    <strong class="text-insulator">عجين عازل للكهرباء 🛡️</strong>.
+                    اختر المهمة، ثم ضع المكونات الصحيحة في وعاء الخلط!
+                </p>
+
+                <div class="recipe-selector">
+                    <button class="recipe-goal-btn active" id="goal-conductive" onclick="setKitchenGoal('conductive')">
+                        ⚡ أريد تحضير: <strong>صلصال موصل للكهرباء</strong>
+                        <span class="check-mark" id="done-conductive">✔️</span>
+                    </button>
+                    <button class="recipe-goal-btn" id="goal-insulator" onclick="setKitchenGoal('insulator')">
+                        🛡️ أريد تحضير: <strong>عجين عازل للكهرباء</strong>
+                        <span class="check-mark" id="done-insulator">✔️</span>
+                    </button>
+                </div>
+
+                <!-- المكونات المتاحة -->
+                <div class="ingredients-shelf">
+                    <h3>اضغط على المكونات لإضافتها في الوعاء 👇</h3>
+                    <div class="ingredients-grid">
+                        <button class="ing-card" onclick="addIngredient('water')" id="ing-water">
+                            <div class="ing-emoji">💧</div>
+                            <div class="ing-name">ماء دافئ</div>
+                            <div class="ing-role">يساعد على الذوبان</div>
+                        </button>
+                        <button class="ing-card" onclick="addIngredient('flour')" id="ing-flour">
+                            <div class="ing-emoji">🌾</div>
+                            <div class="ing-name">دقيق (طحين)</div>
+                            <div class="ing-role">يبني قوام العجين</div>
+                        </button>
+                        <button class="ing-card special-salt" onclick="addIngredient('salt')" id="ing-salt">
+                            <div class="ing-emoji">🧂</div>
+                            <div class="ing-name">ملح طعام</div>
+                            <div class="ing-role">أيونات توصل الكهرباء! ⚡</div>
+                        </button>
+                        <button class="ing-card special-sugar" onclick="addIngredient('sugar')" id="ing-sugar">
+                            <div class="ing-emoji">🍬</div>
+                            <div class="ing-name">سكر</div>
+                            <div class="ing-role">لا يوصل الكهرباء 🛡️</div>
+                        </button>
+                        <button class="ing-card" onclick="addIngredient('foam')" id="ing-foam">
+                            <div class="ing-emoji">🧽</div>
+                            <div class="ing-name">قطعة فوم / ورق</div>
+                            <div class="ing-role">بديل جاهز للعازل 🛡️</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- وعاء الخلط وجهاز الاختبار -->
+                <div class="mixing-station">
+                    <div class="bowl-wrapper">
+                        <div class="bowl" id="mixing-bowl">
+                            <div class="bowl-contents" id="bowl-contents">
+                                <span class="empty-hint">الوعاء فارغ.. أضف المكونات!</span>
+                            </div>
+                        </div>
+                        <div class="bowl-actions">
+                            <button class="btn-mix" onclick="testMixture()">🔬 اعجن واختبر التوصيل بالبطارية!</button>
+                            <button class="btn-reset-bowl" onclick="clearBowl()">🗑️ تفريغ الوعاء</button>
+                        </div>
+                    </div>
+
+                    <div class="tester-box" id="kitchen-tester">
+                        <h4>جهاز فحص العجين 🔋💡</h4>
+                        <div class="tester-visual" id="tester-visual">
+                            <div class="test-battery">🔋 9V</div>
+                            <div class="test-sample" id="test-sample-blob">؟</div>
+                            <div class="test-bulb" id="test-bulb-icon">💡</div>
+                        </div>
+                        <p class="tester-result" id="tester-result-text">اصنع العجين أولاً لنرى هل يمر التيار الكهربائي أم لا!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== القسم الثاني: ورشة الأشكال المضيئة ==================== -->
+    <main id="section-workshop" class="game-section">
+        <!-- شريط اختيار الأشكال مستوحى من صور الورشة -->
+        <div class="shapes-selector-bar">
+            <button class="shape-tab active" onclick="loadShape('balls')" id="shape-btn-balls">
+                <span class="s-emoji">🟠🟣</span>
+                <span class="s-title">1. الكرتان والليد</span>
+                <span class="s-status" id="status-balls">⭐</span>
+            </button>
+            <button class="shape-tab" onclick="loadShape('snail')" id="shape-btn-snail">
+                <span class="s-emoji">🐌</span>
+                <span class="s-title">2. الحلزون المضيء</span>
+                <span class="s-status" id="status-snail">🔒</span>
+            </button>
+            <button class="shape-tab" onclick="loadShape('fish')" id="shape-btn-fish">
+                <span class="s-emoji">🐠</span>
+                <span class="s-title">3. السمكة المنيرة</span>
+                <span class="s-status" id="status-fish">🔒</span>
+            </button>
+            <button class="shape-tab" onclick="loadShape('octopus')" id="shape-btn-octopus">
+                <span class="s-emoji">🐙</span>
+                <span class="s-title">4. الأخطبوط العجيب</span>
+                <span class="s-status" id="status-octopus">🔒</span>
+            </button>
+            <button class="shape-tab" onclick="loadShape('butterfly')" id="shape-btn-butterfly">
+                <span class="s-emoji">🦋</span>
+                <span class="s-title">5. الفراشة المضيئة</span>
+                <span class="s-status" id="status-butterfly">🔒</span>
+            </button>
+            <button class="shape-tab" onclick="loadShape('car')" id="shape-btn-car">
+                <span class="s-emoji">🚗</span>
+                <span class="s-title">6. السيارة الساندوتش</span>
+                <span class="s-status" id="status-car">🔒</span>
+            </button>
+        </div>
+
+        <div class="workshop-layout">
+            <!-- صندوق الأدوات على اليمين -->
+            <aside class="toolbox-panel">
+                <h3>🧰 صندوق أدوات الورشة</h3>
+                <p class="toolbox-hint">اضغط على الأداة لتفعيلها ثم اضغط على مكانها في الشكل!</p>
+
+                <div class="tool-group">
+                    <h4>1️⃣ تشكيل الصلصال والعازل</h4>
+                    <button class="tool-btn active" id="tool-conductive" onclick="selectTool('conductive')">
+                        <span class="t-icon conductive-dot">🔴</span>
+                        <div class="t-info">
+                            <strong>صلصال كهربي (موصل)</strong>
+                            <small>ماء + دقيق + ملح 🧂⚡</small>
+                        </div>
+                    </button>
+                    <button class="tool-btn" id="tool-insulator" onclick="selectTool('insulator')">
+                        <span class="t-icon insulator-dot">⚪</span>
+                        <div class="t-info">
+                            <strong>فاصل عازل للكهرباء</strong>
+                            <small>عجين سكر / فوم / ورق 🛡️</small>
+                        </div>
+                    </button>
+                    <button class="tool-btn danger-tool" id="tool-remove-insulator" onclick="selectTool('no_insulator')">
+                        <span class="t-icon">💥</span>
+                        <div class="t-info">
+                            <strong>جرب تلامس الصلصال!</strong>
+                            <small>ماذا يحدث بدون عازل؟ 🤔</small>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="tool-group">
+                    <h4>2️⃣ أسلاك البطارية (9 فولت)</h4>
+                    <button class="tool-btn" id="tool-wire-pos" onclick="selectTool('wire_pos')">
+                        <span class="t-icon red-wire-icon">➕🔴</span>
+                        <div class="t-info">
+                            <strong>السلك الأحمر (الموجب +)</strong>
+                            <small>يوصل بقطعة الصلصال الموجبة</small>
+                        </div>
+                    </button>
+                    <button class="tool-btn" id="tool-wire-neg" onclick="selectTool('wire_neg')">
+                        <span class="t-icon black-wire-icon">➖⚫</span>
+                        <div class="t-info">
+                            <strong>السلك الأسود (السالب -)</strong>
+                            <small>يوصل بقطعة الصلصال السالبة</small>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="tool-group">
+                    <h4>3️⃣ الليد المضيء والموتور</h4>
+                    <button class="tool-btn" id="tool-led-correct" onclick="selectTool('led_correct')">
+                        <span class="t-icon">💡</span>
+                        <div class="t-info">
+                            <strong>ليد LED (توصيل صحيح)</strong>
+                            <small>الرجل الطويلة (+) مع الموجب، والقصيرة (-) مع السالب</small>
+                        </div>
+                    </button>
+                    <button class="tool-btn warning-tool" id="tool-led-reversed" onclick="selectTool('led_reversed')">
+                        <span class="t-icon">🔄</span>
+                        <div class="t-info">
+                            <strong>ليد LED (أطراف معكوسة)</strong>
+                            <small>جرب عكس الرجل الطويلة والقصيرة!</small>
+                        </div>
+                    </button>
+                    <button class="tool-btn" id="tool-buzzer" onclick="selectTool('buzzer')">
+                        <span class="t-icon">🔊⚙️</span>
+                        <div class="t-info">
+                            <strong>مصدر صوت / موتور مروحة</strong>
+                            <small>ابتكار إضافي مع الليد!</small>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- بطاقة تعليمية سريعة عن الليد -->
+                <div class="led-info-card">
+                    <h5>🔍 معلومة ديسكفري المهمة:</h5>
+                    <div class="led-diagram-mini">
+                        <div class="leg-long">➕ الطرف الطويل (موجب) 👈 مع السلك الأحمر</div>
+                        <div class="leg-short">➖ الطرف القصير (سالب) 👈 مع السلك الأسود</div>
+                    </div>
+                    <p class="warning-note">⚠️ لا نوصّل الليد بالبطارية 9V مباشرة حتى لا يحترق! الصلصال يحميه.</p>
+                </div>
+            </aside>
+
+            <!-- طاولة العمل التفاعلية في المنتصف -->
+            <section class="workbench-panel">
+                <div class="workbench-header">
+                    <div>
+                        <h2 id="current-shape-title">1. تجربة الكرتين والليد</h2>
+                        <p id="current-shape-steps">اتبع الخطوات بالترتيب: كوّن الصلصال 👈 ضع العازل 👈 وصّل البطارية 👈 اغرز الليد!</p>
+                    </div>
+                    <div class="workbench-controls">
+                        <button class="btn-auto-hint" onclick="showStepHint()">💡 ساعدني بخطوة</button>
+                        <button class="btn-reset-shape" onclick="resetCurrentShape()">🔄 إعادة الشكل</button>
+                    </div>
+                </div>
+
+                <!-- شريط خطوات البناء التفاعلي -->
+                <div class="steps-checklist" id="steps-checklist">
+                    <div class="step-pill" id="chk-partA">1. القطعة الأولى (صلصال)</div>
+                    <div class="step-pill" id="chk-partB">2. القطعة الثانية (صلصال)</div>
+                    <div class="step-pill" id="chk-insulator">3. العازل بينهما 🛡️</div>
+                    <div class="step-pill" id="chk-wires">4. أسلاك البطارية (+ و -)</div>
+                    <div class="step-pill" id="chk-led">5. غرز الليد (الطويل + والقصير -)</div>
+                </div>
+
+                <!-- لوحة الرسم التفاعلية SVG -->
+                <div class="canvas-stage" id="canvas-stage">
+                    <svg id="workbench-svg" viewBox="0 0 800 470" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- توهج الإضاءة -->
+                            <radialGradient id="ledGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#ffffaa" stop-opacity="1"/>
+                                <stop offset="45%" stop-color="#ffea00" stop-opacity="0.8"/>
+                                <stop offset="100%" stop-color="#ff9900" stop-opacity="0"/>
+                            </radialGradient>
+                            <radialGradient id="shortCircuitGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#ff3300" stop-opacity="0.9"/>
+                                <stop offset="100%" stop-color="#ff0000" stop-opacity="0"/>
+                            </radialGradient>
+                            <!-- ظل ناعم لقطع الصلصال -->
+                            <filter id="clayShadow" x="-10%" y="-10%" width="125%" height="125%">
+                                <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.22"/>
+                            </filter>
+                        </defs>
+
+                        <!-- خلفية الطاولة -->
+                        <rect x="0" y="0" width="800" height="470" rx="22" fill="#f0f9ff" />
+                        <circle cx="730" cy="60" r="90" fill="#e0f2fe" opacity="0.6"/>
+                        <circle cx="70" cy="400" r="110" fill="#fef9c3" opacity="0.5"/>
+
+                        <!-- البطارية 9V الثابتة على الطاولة -->
+                        <g id="battery-group" transform="translate(40, 290)">
+                            <!-- جسم البطارية -->
+                            <rect x="0" y="25" width="105" height="130" rx="12" fill="#1e293b" stroke="#0f172a" stroke-width="3" filter="url(#clayShadow)"/>
+                            <rect x="0" y="25" width="105" height="42" rx="10" fill="#d97706"/>
+                            <text x="52" y="53" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="900" font-family="Cairo">9V 🔋</text>
+                            <text x="52" y="95" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="700" font-family="Cairo">بطارية</text>
+                            <text x="52" y="115" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="700" font-family="Cairo">ديسكفري</text>
+                            <!-- أقطاب البطارية والجاك -->
+                            <rect x="22" y="10" width="18" height="15" rx="3" fill="#94a3b8"/>
+                            <rect x="65" y="10" width="18" height="15" rx="3" fill="#94a3b8"/>
+                            <rect x="15" y="0" width="75" height="14" rx="6" fill="#334155"/>
+                            <!-- علامة الموجب والسالب -->
+                            <circle cx="31" cy="46" r="11" fill="#ef4444"/>
+                            <text x="31" y="52" text-anchor="middle" fill="#fff" font-size="16" font-weight="900">+</text>
+                            <circle cx="74" cy="46" r="11" fill="#0f172a"/>
+                            <text x="74" y="51" text-anchor="middle" fill="#fff" font-size="16" font-weight="900">-</text>
+                            <!-- تحذير سخونة البطارية عند التلامس -->
+                            <g id="battery-heat-warning" opacity="0">
+                                <rect x="-8" y="18" width="121" height="144" rx="16" fill="none" stroke="#ef4444" stroke-width="4" stroke-dasharray="8,4"/>
+                                <text x="52" y="-12" text-anchor="middle" fill="#dc2626" font-size="15" font-weight="900" font-family="Cairo">🔥 البطارية تسخن وتفرغ!</text>
+                            </g>
+                        </g>
+
+                        <!-- طبقة الشكل الديناميكي (يتم رسمها عبر JS) -->
+                        <g id="shape-layer"></g>
+
+                        <!-- طبقة الأسلاك الموصلة -->
+                        <g id="wires-layer"></g>
+
+                        <!-- طبقة الليد والمؤثرات الضوئية -->
+                        <g id="components-layer"></g>
+                    </svg>
+
+                    <!-- لافتة حالة الدائرة الكهربائية أسفل اللوحة -->
+                    <div class="circuit-status-banner" id="circuit-banner">
+                        <span class="status-icon" id="circuit-icon">🛠️</span>
+                        <span class="status-msg" id="circuit-msg">اختر أداة الصلصال الكهربي من اليمين واضغط على أجزاء الشكل لتلوينها وتشكيلها!</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ==================== القسم الثالث: تحدي العلماء الصغار (أسئلة تفاعلية) ==================== -->
+    <main id="section-quiz" class="game-section">
+        <div class="quiz-container">
+            <div class="quiz-card" id="quiz-card">
+                <div class="quiz-top-bar">
+                    <span class="quiz-progress-badge" id="quiz-progress">السؤال 1 من 7</span>
+                    <span class="quiz-streak" id="quiz-streak">🔥 حماس العلماء!</span>
+                </div>
+
+                <div class="quiz-illustration" id="quiz-illustration">🧂⚡💧</div>
+                <h2 class="quiz-question" id="quiz-question">جاري تحميل السؤال...</h2>
+
+                <div class="quiz-options" id="quiz-options"></div>
+
+                <div class="quiz-feedback" id="quiz-feedback" style="display: none;">
+                    <div class="feedback-text" id="feedback-text"></div>
+                    <button class="btn-next-q" id="btn-next-q" onclick="nextQuizQuestion()">السؤال التالي ⬅️</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
